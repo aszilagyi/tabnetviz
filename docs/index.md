@@ -1,6 +1,6 @@
 # Tabnetviz - table-based network visualizer
 
-![sample network](demo/galFiltered.svg)
+![sample network](galFiltered.svg)
 
 **Tabnetviz** generates network visualizations from node and edge
 properties provided in tables. The node and edge properties can be

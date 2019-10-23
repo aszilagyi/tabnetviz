@@ -43,7 +43,7 @@ then be mapped to visual attributes, e.g. node sizes or colors.
 
 Here's an example visualization created by Tabnetviz:
 
-![sample network](demo/galFiltered.svg)
+![sample network](docs/galFiltered.svg)
 
 ## INSTALLATION
 
