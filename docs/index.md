@@ -57,6 +57,14 @@ can install Tabnetviz by
 Alternatively, you can download the source distribution from
 [github](https://github.com/aszilagyi/tabnetviz).
 
+(Note that sometimes `pip` cannot install `pygraphviz` (required for
+**tabnetviz**) correctly because of a compilation error. In this case,
+you may try to install it in another way. On Debian Linux, use `apt
+install python3-pygraphviz`, or `apt install libgraphviz-dev` before
+using `pip`. See [this
+discussion](https://github.com/pygraphviz/pygraphviz/issues/155) for
+more details.)
+
 ## DOCUMENTATION
 
 * [User Guide](userguide.md)
