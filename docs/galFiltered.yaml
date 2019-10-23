@@ -1,0 +1,77 @@
+networktype: directed
+edgetable:
+  file: galFiltered.csv
+nodetable:
+  file: galExpData.csv
+  idcolumn: GENE
+  skipisolated: true
+outputfiles:
+  drawing: galFiltered.svg
+  dot: galFiltered.dot
+  nodetableout: galnt.tsv
+  edgetableout: galet.tsv
+  colorbars: galFiltered_colorbars.svg
+networkanalysis: [AverageShortestPathLength, BetweennessCentrality, ClosenessCentrality, Degree, NeighborhoodConnectivity, SelfLoops, EdgeBetweenness, Indegree, Outdegree]
+colormaps:
+  bwy:
+    type: continuous
+    map:
+      0.0: '#0066CCC0'
+      0.5: '#FFFFFFC0'
+      1.0: '#FFFF00C0'
+layout: fdp
+graphattrs:
+  splines: spline
+nodestyles:
+  default:
+    color: '#CCCCCC'
+    ngfillcolor1:
+      type: colormap
+      colexpr: gal1RGexp
+      centerzero: piecewise
+      colormap: bwy
+    ngfillcolor2:
+      type: colormap
+      colexpr: gal4RGexp
+      centerzero: piecewise
+      colormap: bwy
+    ngfillcolor3:
+      type: colormap
+      colexpr: gal80Rexp
+      centerzero: piecewise
+      colormap: bwy
+    fillcolor:
+      type: combine
+      attrlist: [ngfillcolor1, ngfillcolor2, ngfillcolor3]
+      formatstring: '%s:%s:%s'
+    shape: circle
+    style: wedged
+    label:
+      type: direct
+      colexpr: COMMON
+    height:
+      type: linear
+      colexpr: Degree
+      mapmin: 0.5
+      mapmax: 1.6
+    fixedsize: true
+    fontsize:
+      type: linear
+      colexpr: Degree
+      mapmin: 10.0
+      mapmax: 28.0
+    fontname: Arial
+edgestyles:
+  default:
+    color:
+      type: discrete
+      colexpr: interaction
+      map:
+        pp: '#CCCCCC'
+        pd: red
+    dir:
+      type: discrete
+      colexpr: directed
+      map:
+        TRUE: forward
+        FALSE: none

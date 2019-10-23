@@ -1,0 +1,30 @@
+nodetable: nodetable_simple.tsv
+edgetable: edgetable_simple.tsv
+outputfiles: output_simple.svg
+networkanalysis: Degree
+nodestyles:
+  default:
+    shape: circle
+    style: filled
+    height:
+      type: linear
+      colexpr: Degree
+      mapmin: 1.0
+      mapmax: 2.5
+    fillcolor:
+      type: colormap
+      colexpr: score
+      colormap: bwr
+edgestyles:
+  default:
+    penwidth:
+      type: linear
+      colexpr: weight
+      mapmin: 1.0
+      mapmax: 6.0
+    dir:
+      type: discrete
+      colexpr: directed
+      map:
+        true: forward
+        false: none

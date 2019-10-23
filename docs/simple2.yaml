@@ -1,0 +1,37 @@
+nodetable: nodetable_simple.tsv
+edgetable: edgetable_simple.tsv
+outputfiles:
+  drawing: output_simple2.svg
+  colorbars: simple2_colorbar.svg
+networkanalysis: Degree
+nodegroups:
+  group1: score < 0 and fruit == 'apple'
+nodestyles:
+  default:
+    shape: circle
+    style: filled
+    height:
+      type: linear
+      colexpr: Degree
+      mapmin: 1.0
+      mapmax: 2.5
+    fillcolor:
+      type: colormap
+      colexpr: score
+      colormap: bwr
+  group1:
+    color: red
+    penwidth: 5.0
+edgestyles:
+  default:
+    penwidth:
+      type: linear
+      colexpr: weight
+      mapmin: 1.0
+      mapmax: 6.0
+    dir:
+      type: discrete
+      colexpr: directed
+      map:
+        true: forward
+        false: none
