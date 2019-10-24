@@ -243,6 +243,12 @@ node names (space after the comma is necessary!) in square brackets:
 list of **(source, target)** pairs, e.g `[(node1, node3), (node5,
 node7), (node8, node13)]`.
 
+Groups are added to the node/edge table as new Boolean columns. As
+group definitions are processed in the order they appear in the
+configuration file, definitions can refer to groups defined earlier.
+For example, if you defined a group `group1`, you can define its
+complement as `not group1`.
+
 ### DEFINING CLUSTERS
 
 Clusters are node groups with a box drawn around them. Currently, only
