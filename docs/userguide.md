@@ -10,7 +10,13 @@ generates the network visualization by mapping the node and edge
 properties to visual attributes such as node sizes, shapes, colors,
 edge colors, width, etc. This mapping is defined in a simple
 configuration file, which is written manually and uses the
-human-readable YAML format.
+human-readable YAML format. The output from Tabnetviz is a drawing as
+an SVG file or an image file.
+
+The function of Tabnetviz is illustrated with the following
+flowchart (itself created with **tabnetviz**):
+
+![flowchart](tnv.svg)
 
 ## INSTALLATION
 
@@ -216,15 +222,16 @@ quantities may take a long time for large networks.
 
 Node groups and edge groups can be defined by providing Boolean
 expressions of node table or edge table columns, or by explicitly
-listing the nodes/edges you want in the group. Visual styles can
-later be applied on these groups. Under the `/nodegroups` and
-`/edgegroups` keyword, provide _`groupname: columnexpression`_
-key-value pairs, with _`groupname`_ being the group name of your
-choice, and _`columnexpression`_ being an expression using node table
-or edge table column names. The expression can contain simple
-numerical or string operations. The program uses the `query` method of
-a Pandas dataframe internally. Python string methods can be used by
-appending `.str` to the column name. Examples for expressions:
+listing the nodes/edges you want in the group. Visual styles can later
+be applied on these groups. Under the `/nodegroups` and `/edgegroups`
+keyword, provide _`groupname: columnexpression`_ key-value pairs, with
+_`groupname`_ being the group name of your choice, and
+_`columnexpression`_ being an expression using node table or edge
+table column names. The group name must not match an existing column
+name except if it is a Boolean column. The expression can contain
+simple numerical or string operations. The program uses the `query`
+method of a Pandas dataframe internally. Python string methods can be
+used by appending `.str` to the column name. Examples for expressions:
 
 ~~~
 a+b < 5

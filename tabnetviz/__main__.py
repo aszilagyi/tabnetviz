@@ -232,8 +232,13 @@ def table2net(configfile):
     if 'nodegroups' in conf:
         for ngname in conf['nodegroups']:
             if ngname in nodetab.columns:
-                raise ValueError('node group name %s matches existing node table column name' %
-                  (ngname))
+                if nodetab[ngname].dtype == bool:
+                    # group name matches a Boolean column name, accept it as a group
+                    nodegroups[ngname] = nodetab.query(ngname).index
+                    continue
+                else:
+                    raise ValueError('node group name %s matches existing node table column name' %
+                      (ngname))
             groupdef = conf['nodegroups'][ngname]
             # add boolean column to node table so the group can be used in subsequent
             # group definitions
@@ -256,8 +261,13 @@ def table2net(configfile):
     if 'edgegroups' in conf:
         for egname in conf['edgegroups']:
             if egname in edgetab.columns:
-                raise ValueError('edge group name %s matches existing edge table column name' %
-                  (egname))
+                if edgetab[egname].dtype == bool:
+                    # group name matches a Boolean column name, accept it as a group
+                    edgegroups[egname] = edgetab.query(egname).index
+                    continue
+                else:
+                    raise ValueError('edge group name %s matches existing edge table column name' %
+                      (egname))
             groupdef = conf['edgegroups'][egname]
             # add boolean column to node table so the group can be used in subsequent
             # group definitions
