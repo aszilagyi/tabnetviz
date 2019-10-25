@@ -10,6 +10,7 @@
 import sys
 import os
 import argparse
+import difflib
 from time import sleep
 from collections import OrderedDict, Counter
 # 3rd party imports
@@ -39,6 +40,74 @@ def tovarname(s):
         v = 'c'+v
     return v
 
+def kwcheck(keywords, validkeywords, context=''):
+    '''report unknown keywords and provide suggestions'''
+    ct = ' under '+context if context else ''
+    U = set(keywords)-set(validkeywords)
+    if U:
+        s = 's' if len(U) > 1 else ''
+        print('Invalid keyword'+s+' in config file%s:' % (ct), file=sys.stderr)
+        nosugg = False
+        for kw in U:
+            sugg = difflib.get_close_matches(kw, list(validkeywords), n=1)
+            if sugg:
+                print('"'+kw+'": did you mean "'+sugg[0]+'"?', file=sys.stderr)
+            else:
+                print('"'+kw+'"', file=sys.stderr)
+                nosugg = True
+        if nosugg:
+            print('Valid keywords here are:', ', '.join(list(validkeywords)), file=sys.stderr)
+        sys.exit(1)
+    
+def checkkeywords(conf):
+    '''check whether all config keywords are valid'''
+    s = 'networktype title layout graphattrs networkanalysis nodegroups edgegroups clusters'
+    top0kw = s.split() # toplevel keywords with no subkeywords
+    xtable = 'filetype file sheet noheader'.split()
+    etable = xtable+'sourcecolumn targetcolumn fromcytoscape'.split()
+    ntable = xtable+'idcolumn skipisolated'.split()
+    # toplevel keywords with children
+    top1kw = {'edgetable': etable,
+              'nodetable': ntable,
+              'outputfiles': 'drawing dot nodetableout edgetableout colorbars'.split()}
+    # toplevel keywords with grandkids
+    top2kw = {'addrankings': 'table colexpr method reverse withingroup'.split(),
+              'colormaps': 'type map'.split()}
+    # toplevel keywords with grandgrandkids (too complex)
+    top3kw = 'nodestyles edgestyles'.split()
+    # check for all toplevel keywords
+    kwcheck(conf, top0kw+list(top1kw)+list(top2kw)+top3kw)
+    # check top1kw keywords
+    for kw in top1kw:
+        if kw in conf and type(conf[kw]) == OrderedDict:
+            kwcheck(conf[kw], top1kw[kw], context=kw)
+    # check top2kw keywords
+    for kw in top2kw:
+        if kw in conf and type(conf[kw]) == OrderedDict:
+            for kww in conf[kw]:
+                if type(conf[kw][kww]) == OrderedDict:
+                    kwcheck(conf[kw][kww], top2kw[kw], context=kw+'/'+kww)
+    # check top3kw keywords
+    typekw = {'direct': ['colexpr'],
+              'discrete': 'colexpr map'.split(),
+              'linear': 'colexpr colmin colmax mapmin mapmax withingroup'.split(),
+              'cont2disc': 'colexpr map'.split(),
+              'colormap': 'colexpr colmin colmax centerzero colormap reverse withingroup'.split(),
+              'combine': 'attrlist formatstring'.split()}
+    for kw in top3kw:
+        if kw in conf and type(conf[kw]) == OrderedDict:
+            for groupname in conf[kw]:
+                if type(conf[kw][groupname]) == OrderedDict:
+                    for attrname in conf[kw][groupname]:
+                        if type(conf[kw][groupname][attrname]) == OrderedDict:
+                            ct = '/'.join([kw, groupname, attrname])
+                            if 'type' not in conf[kw][groupname][attrname]:
+                                raise ValueError('type parameter missing in '+ct)
+                            tp = conf[kw][groupname][attrname]['type']
+                            ct += ' (type: '+tp+')'
+                            validkw = ['type']+typekw[tp]
+                            kwcheck(conf[kw][groupname][attrname], validkw, context=ct)
+
 def cont2disc(x, cdmap):
     '''continuous-to-discrete mapping function'''
     for h in list(cdmap)[:-1]:
@@ -49,6 +118,7 @@ def cont2disc(x, cdmap):
 def table2net(configfile):
     '''create visualization'''
     conf = parseconfig(configfile)
+    checkkeywords(conf) # do some input validation
     
     # read input files (edge and node table)
     
