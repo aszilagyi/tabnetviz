@@ -6,10 +6,31 @@
 #
 # Thanks to Zsofia Feher for an initial version of this module
 
+import sys
+import difflib
+from collections import OrderedDict
 import networkx as nx
 import pandas as pd
-from collections import OrderedDict
 
+
+def kwcheck(keywords, validkeywords):
+    '''report unknown keywords and provide suggestions'''
+    U = set(keywords)-set(validkeywords)
+    if U:
+        s = 'ies' if len(U) > 1 else 'y'
+        print('Unknown quantit'+s+' requested:', file=sys.stderr)
+        nosugg = False
+        for kw in U:
+            sugg = difflib.get_close_matches(kw, list(validkeywords), n=1)
+            if sugg:
+                print('"'+kw+'": did you mean "'+sugg[0]+'"?', file=sys.stderr)
+            else:
+                print('"'+kw+'"', file=sys.stderr)
+                nosugg = True
+        if nosugg:
+            print('Valid quantity names are:', ', '.join(list(validkeywords)), file=sys.stderr)
+        sys.exit(1)
+        
 def Degree(G):
     return G.degree
 
@@ -180,14 +201,15 @@ def calcquant(nodetab, idcol, edgetab, sourcecol, targetcol, directed, quant='al
         quantities = quant
     else:
         raise ValueError('quantity for network analysis must be string or list')
-
+    
+    validq = common_qlist+dironly_qlist+undironly_qlist+edgeqlist
+    kwcheck(quantities, validq) # report unknown quantity names
+    
     nodeqdic = OrderedDict()
     edgeqdic = OrderedDict()
     for q in quantities:
         if q in notimplemented:
             raise ValueError('Not yet implemented: '+q)
-        if q not in common_qlist+dironly_qlist+undironly_qlist+edgeqlist:
-            raise ValueError('Unknown quantity: '+q)
         if directed and q in undironly_qlist:
             raise ValueError('Quantity not available for directed network: '+q)
         if not directed and q in dironly_qlist:
