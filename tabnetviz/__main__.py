@@ -250,27 +250,27 @@ def table2net(configfile):
         G.add_node(nodename)
     
     for x in edgetab.index:
-        G.add_edge(edgetab[sourcecolumn][x], edgetab[targetcolumn][x])
+        G.add_edge(edgetab[sourcecolumn][x], edgetab[targetcolumn][x], key=x)
     
     # if input dot is specified, read it and check if nodes/edges are the same as G
     
     if conf.get('layout', 'neato').lower().endswith('.dot'):
         L = pgv.AGraph(conf['layout'])
-        Ge = G.edges()
-        Le = L.edges()
+        Ge = G.edges(keys=True)
+        Le = L.edges(keys=True)
         Gn = G.nodes()
         Ln = L.nodes()
         if (len(Ge), len(Gn), set(Ge), set(Gn)) == (len(Le), len(Ln), set(Le), set(Ln)):
             if (all('pos' in L.get_node(v).attr for v in L.nodes()) and 
-                all('pos' in L.get_edge(u, v).attr for (u, v) in L.edges())):
+                all('pos' in L.get_edge(u, v, key=x).attr for (u, v, x) in L.edges(keys=True))):
                 # copy all positions
                 for v in Ln:
                     vG = G.get_node(v)
                     vL = L.get_node(v)
                     vG.attr['pos'] = vL.attr['pos']
-                for (u, v) in Le:
-                    eG = G.get_edge(u, v)
-                    eL = L.get_edge(u, v)
+                for (u, v, x) in Le:
+                    eG = G.get_edge(u, v, key=x)
+                    eL = L.get_edge(u, v, key=x)
                     eG.attr['pos'] = eL.attr['pos']
                 G.has_layout = True
             else:
@@ -496,7 +496,8 @@ def table2net(configfile):
                             node = G.get_node(x)
                             node.attr[prop] = propval
                         else: # for edge table
-                            edge = G.get_edge(tab.at[x, sourcecolumn], tab.at[x, targetcolumn])
+                            edge = G.get_edge(tab.at[x, sourcecolumn], tab.at[x, targetcolumn], 
+                              key=x)
                             edge.attr[prop] = propval
             # direct mapping
             elif propval['type'] == 'direct': # direct mapping of table data to style
@@ -508,7 +509,7 @@ def table2net(configfile):
                         node = G.get_node(x)
                         node.attr[prop] = col[x]
                     else: # for edge table
-                        edge = G.get_edge(tab.at[x, sourcecolumn], tab.at[x, targetcolumn])
+                        edge = G.get_edge(tab.at[x, sourcecolumn], tab.at[x, targetcolumn], key=x)
                         edge.attr[prop] = col[x]
             # discrete mapping
             elif propval['type'] == 'discrete': # discrete mapping
@@ -522,7 +523,7 @@ def table2net(configfile):
                         node = G.get_node(x)
                         node.attr[prop] = propval['map'][col[x]]
                     else: # for edge table
-                        edge = G.get_edge(tab.at[x, sourcecolumn], tab.at[x, targetcolumn])
+                        edge = G.get_edge(tab.at[x, sourcecolumn], tab.at[x, targetcolumn], key=x)
                         edge.attr[prop] = propval['map'][col[x]]
             # linear mapping
             elif propval['type'] == 'linear': # linear mapping
@@ -546,7 +547,7 @@ def table2net(configfile):
                         node = G.get_node(x)
                         node.attr[prop] = col[x]
                     else:
-                        edge = G.get_edge(tab.at[x, sourcecolumn], tab.at[x, targetcolumn])
+                        edge = G.get_edge(tab.at[x, sourcecolumn], tab.at[x, targetcolumn], key=x)
                         edge.attr[prop] = col[x]
             # cont2disc mapping
             elif propval['type'] == 'cont2disc': # continuous-to-discrete mapping
@@ -564,7 +565,7 @@ def table2net(configfile):
                         node = G.get_node(x)
                         node.attr[prop] = mappedval
                     else:
-                        edge = G.get_edge(tab.at[x, sourcecolumn], tab.at[x, targetcolumn])
+                        edge = G.get_edge(tab.at[x, sourcecolumn], tab.at[x, targetcolumn], key=x)
                         edge.attr[prop] = mappedval
             # colormap mapping
             elif propval['type'] == 'colormap': # color mapping
@@ -640,7 +641,7 @@ def table2net(configfile):
                         node = G.get_node(x)
                         node.attr[prop] = colors.to_hex(cmap(col[x]), keep_alpha=True)
                     else:
-                        edge = G.get_edge(tab.at[x, sourcecolumn], tab.at[x, targetcolumn])
+                        edge = G.get_edge(tab.at[x, sourcecolumn], tab.at[x, targetcolumn], key=x)
                         edge.attr[prop] = colors.to_hex(cmap(col[x]), keep_alpha=True)
             # combine mapping
             elif propval['type'] == 'combine':
@@ -653,7 +654,7 @@ def table2net(configfile):
                         node = G.get_node(x)
                         node.attr[prop] = s
                     else:
-                        edge = G.get_edge(tab.at[x, sourcecolumn], tab.at[x, targetcolumn])
+                        edge = G.get_edge(tab.at[x, sourcecolumn], tab.at[x, targetcolumn], key=x)
                         edge.attr[prop] = s
             # unknown mapping type
             else:
