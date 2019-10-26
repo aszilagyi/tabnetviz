@@ -462,7 +462,7 @@ def table2net(configfile):
         conf['edgestyles'].move_to_end('default', last=False)
     # iterate over groups
     for igr, gr in enumerate(list(conf.get('nodestyles', []))+list(conf.get('edgestyles', []))):
-        isnodegr = igr < len(conf.get(('nodestyles', []))
+        isnodegr = igr < len(conf.get('nodestyles', []))
         isedgegr = not isnodegr
         tab = nodetab if isnodegr else edgetab
         if isnodegr and gr not in nodegroups:
