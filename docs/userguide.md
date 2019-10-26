@@ -1,3 +1,34 @@
+- [Tabnetviz User Guide](#tabnetviz-user-guide)
+  * [INSTALLATION](#installation)
+  * [COMMAND LINE](#command-line)
+  * [CONFIGURATION FILE](#configuration-file)
+    + [DEFINING THE NETWORK](#defining-the-network)
+    + [COLUMN NAME CONVERSION](#column-name-conversion)
+    + [OUTPUT FILES](#output-files)
+    + [GRAPH LAYOUT](#graph-layout)
+    + [GRAPH ATTRIBUTES](#graph-attributes)
+    + [NETWORK ANALYSIS](#network-analysis)
+    + [DEFINING NODE GROUPS AND EDGE GROUPS](#defining-node-groups-and-edge-groups)
+    + [DEFINING CLUSTERS](#defining-clusters)
+    + [ADDING RANKINGS](#adding-rankings)
+    + [DEFINING COLOR MAPS](#defining-color-maps)
+    + [MAPPING NODE AND EDGE PROPERTIES TO VISUAL ATTRIBUTES](#mapping-node-and-edge-properties-to-visual-attributes)
+      - [VISUAL AND CUSTOM ATTRIBUTES](#visual-and-custom-attributes)
+        * [The most commonly used visual node attributes](#the-most-commonly-used-visual-node-attributes)
+        * [The most commonly used visual edge attributes](#the-most-commonly-used-visual-edge-attributes)
+      - [MAPPING TYPES](#mapping-types)
+      - [COLUMN EXPRESSIONS](#column-expressions)
+      - [EXAMPLES OF MAPPINGS](#examples-of-mappings)
+        * [Constant value](#constant-value)
+        * [`direct` mapping](#-direct--mapping)
+        * [`discrete` mapping](#-discrete--mapping)
+        * [`linear` mapping](#-linear--mapping)
+        * [`cont2disc` mapping](#-cont2disc--mapping)
+        * [`colormap` mapping](#-colormap--mapping)
+        * [`combine` mapping](#-combine--mapping)
+
+<small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Table of contents generated with markdown-toc</a></i></small>
+
 # Tabnetviz User Guide
 
 **Tabnetviz** is a command-line tool for generating network
