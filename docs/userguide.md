@@ -1,3 +1,26 @@
+# Tabnetviz User Guide
+
+**Tabnetviz** is a command-line tool for generating network
+visualizations from tabular data. The data are provided to the program
+as a node table and an edge table defining the network; both tables
+can contain an arbitrary number of node properties and edge
+properties. These tables can be provided as comma-separated (CSV) or
+tab-separated (TSV) text files or as Excel worksheets. Tabnetviz
+generates the network visualization by mapping the node and edge
+properties to visual attributes such as node sizes, shapes, colors,
+edge colors, width, etc. This mapping is defined in a simple
+configuration file, which is written manually and uses the
+human-readable YAML format. The output from Tabnetviz is a drawing as
+an SVG file or an image file.
+
+The function of Tabnetviz is illustrated with the following
+flowchart (itself created with **tabnetviz**):
+
+![flowchart](tnv.svg)
+
+Table of Contents (generated with
+[markdown-toc](http://ecotrust-canada.github.io/markdown-toc/)):
+
 - [Tabnetviz User Guide](#tabnetviz-user-guide)
   * [INSTALLATION](#installation)
   * [COMMAND LINE](#command-line)
@@ -27,27 +50,6 @@
         * [`colormap` mapping](#-colormap--mapping)
         * [`combine` mapping](#-combine--mapping)
 
-<small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Table of contents generated with markdown-toc</a></i></small>
-
-# Tabnetviz User Guide
-
-**Tabnetviz** is a command-line tool for generating network
-visualizations from tabular data. The data are provided to the program
-as a node table and an edge table defining the network; both tables
-can contain an arbitrary number of node properties and edge
-properties. These tables can be provided as comma-separated (CSV) or
-tab-separated (TSV) text files or as Excel worksheets. Tabnetviz
-generates the network visualization by mapping the node and edge
-properties to visual attributes such as node sizes, shapes, colors,
-edge colors, width, etc. This mapping is defined in a simple
-configuration file, which is written manually and uses the
-human-readable YAML format. The output from Tabnetviz is a drawing as
-an SVG file or an image file.
-
-The function of Tabnetviz is illustrated with the following
-flowchart (itself created with **tabnetviz**):
-
-![flowchart](tnv.svg)
 
 ## INSTALLATION
 
