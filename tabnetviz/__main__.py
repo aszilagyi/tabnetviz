@@ -10,7 +10,6 @@
 import sys
 import os
 import argparse
-import difflib
 from time import sleep
 from collections import OrderedDict, Counter
 # 3rd party imports
@@ -24,6 +23,8 @@ from tabnetviz.gvattrs import gvattrs
 from tabnetviz import netanalyzer
 from tabnetviz import colorbarsvg
 from tabnetviz import configtemplate
+from tabnetviz.kwcheck import kwcheck
+
 
 def parseconfig(fname):
     '''parse yaml configuration file'''
@@ -40,25 +41,6 @@ def tovarname(s):
         v = 'c'+v
     return v
 
-def kwcheck(keywords, validkeywords, context=''):
-    '''report unknown keywords and provide suggestions'''
-    ct = ' under '+context if context else ''
-    U = set(keywords)-set(validkeywords)
-    if U:
-        s = 's' if len(U) > 1 else ''
-        print('Invalid keyword'+s+' in config file%s:' % (ct), file=sys.stderr)
-        nosugg = False
-        for kw in U:
-            sugg = difflib.get_close_matches(kw, list(validkeywords), n=1)
-            if sugg:
-                print('"'+kw+'": did you mean "'+sugg[0]+'"?', file=sys.stderr)
-            else:
-                print('"'+kw+'"', file=sys.stderr)
-                nosugg = True
-        if nosugg:
-            print('Valid keywords here are:', ', '.join(list(validkeywords)), file=sys.stderr)
-        sys.exit(1)
-    
 def checkkeywords(conf):
     '''check whether all config keywords are valid'''
     s = 'networktype title layout graphattrs networkanalysis nodegroups edgegroups clusters'
@@ -76,17 +58,17 @@ def checkkeywords(conf):
     # toplevel keywords with grandgrandkids (too complex)
     top3kw = 'nodestyles edgestyles'.split()
     # check for all toplevel keywords
-    kwcheck(conf, top0kw+list(top1kw)+list(top2kw)+top3kw)
+    kwcheck(conf, top0kw+list(top1kw)+list(top2kw)+top3kw, context=' in config file')
     # check top1kw keywords
     for kw in top1kw:
         if kw in conf and type(conf[kw]) == OrderedDict:
-            kwcheck(conf[kw], top1kw[kw], context=kw)
+            kwcheck(conf[kw], top1kw[kw], context=' in config file under '+kw)
     # check top2kw keywords
     for kw in top2kw:
         if kw in conf and type(conf[kw]) == OrderedDict:
             for kww in conf[kw]:
                 if type(conf[kw][kww]) == OrderedDict:
-                    kwcheck(conf[kw][kww], top2kw[kw], context=kw+'/'+kww)
+                    kwcheck(conf[kw][kww], top2kw[kw], context=' in config file under '+kw+'/'+kww)
     # check top3kw keywords
     typekw = {'direct': ['colexpr'],
               'discrete': 'colexpr map'.split(),
@@ -100,7 +82,7 @@ def checkkeywords(conf):
                 if type(conf[kw][groupname]) == OrderedDict:
                     for attrname in conf[kw][groupname]:
                         if type(conf[kw][groupname][attrname]) == OrderedDict:
-                            ct = '/'.join([kw, groupname, attrname])
+                            ct = ' in config file under '+'/'.join([kw, groupname, attrname])
                             if 'type' not in conf[kw][groupname][attrname]:
                                 raise ValueError('type parameter missing in '+ct)
                             tp = conf[kw][groupname][attrname]['type']
@@ -290,9 +272,9 @@ def table2net(configfile):
     ## by default, use outputorder=edgesfirst, overlap=false
     G.graph_attr['outputorder'] = 'edgesfirst'
     G.graph_attr['overlap'] = False
+    # check validity of graph attribute names
+    kwcheck(conf.get('graphattrs', []), gvattrs['G'], name='graph attribute|graph attributes')
     for gattr in conf.get('graphattrs', []):
-        if gattr not in gvattrs['G'] and not gattr.startswith('ng'):
-            raise ValueError('"%s" is not a valid graph attribute' % (gattr))
         G.graph_attr[gattr] = conf['graphattrs'][gattr]
     
     # parse node group definitions
@@ -373,9 +355,9 @@ def table2net(configfile):
                 if clusname not in nodegroups:
                     raise ValueError('No such node group: '+clusname)
                 clusdefs[clusname] = clusdef[clusname] # attributes dictionary
-                unknownattrs = set(clusdefs[clusname])-set(gvattrs['C'])
-                if unknownattrs:
-                    raise ValueError('Unknown cluster attribute(s): '+str(unknownattrs))
+                # check validity of attribute names
+                kwcheck(list(clusdefs[clusname]), gvattrs['C'],
+                  name='cluster attribute|cluster attributes', context=' in cluster '+clusname)
             else:
                 raise ValueError('Clusters must be node group names with/without attributes')
         # make node sets out of clusters
@@ -474,10 +456,12 @@ def table2net(configfile):
         props = confst[gr]
         gvattrsg = gvattrs['N'] if isnodegr else gvattrs['E']
         gname = 'node' if isnodegr else 'edge'
+        # check for valid attribute names
+        gvprops = [prop for prop in props if not prop.startswith('ng')]
+        kwcheck(gvprops, gvattrsg, name=gname+' attribute|'+gname+' attributes',
+          context=' under '+gname+'styles/'+gr)
         # iterate over attributes
         for prop in props:
-            if prop not in gvattrsg and not prop.startswith('ng'):
-                raise ValueError('"%s" is not a valid %s attribute' % (prop, gname))
             propval = props[prop] # attribute value
             # constant value "mapping"
             if type(propval) != OrderedDict: # constant value for property (=attribute)

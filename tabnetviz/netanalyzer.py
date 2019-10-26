@@ -12,24 +12,8 @@ from collections import OrderedDict
 import networkx as nx
 import pandas as pd
 
+from tabnetviz.kwcheck import kwcheck
 
-def kwcheck(keywords, validkeywords):
-    '''report unknown keywords and provide suggestions'''
-    U = set(keywords)-set(validkeywords)
-    if U:
-        s = 'ies' if len(U) > 1 else 'y'
-        print('Unknown quantit'+s+' requested:', file=sys.stderr)
-        nosugg = False
-        for kw in U:
-            sugg = difflib.get_close_matches(kw, list(validkeywords), n=1)
-            if sugg:
-                print('"'+kw+'": did you mean "'+sugg[0]+'"?', file=sys.stderr)
-            else:
-                print('"'+kw+'"', file=sys.stderr)
-                nosugg = True
-        if nosugg:
-            print('Valid quantity names are:', ', '.join(list(validkeywords)), file=sys.stderr)
-        sys.exit(1)
         
 def Degree(G):
     return G.degree
@@ -202,8 +186,9 @@ def calcquant(nodetab, idcol, edgetab, sourcecol, targetcol, directed, quant='al
     else:
         raise ValueError('quantity for network analysis must be string or list')
     
+    # check validity of quantity names
     validq = common_qlist+dironly_qlist+undironly_qlist+edgeqlist
-    kwcheck(quantities, validq) # report unknown quantity names
+    kwcheck(quantities, validq, name='quantity|quantities', context=' in networkanalysis')
     
     nodeqdic = OrderedDict()
     edgeqdic = OrderedDict()
