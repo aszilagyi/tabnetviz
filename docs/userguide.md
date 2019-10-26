@@ -43,12 +43,12 @@ Table of Contents (generated with
       - [COLUMN EXPRESSIONS](#column-expressions)
       - [EXAMPLES OF MAPPINGS](#examples-of-mappings)
         * [Constant value](#constant-value)
-        * [`direct` mapping](#-direct--mapping)
-        * [`discrete` mapping](#-discrete--mapping)
-        * [`linear` mapping](#-linear--mapping)
-        * [`cont2disc` mapping](#-cont2disc--mapping)
-        * [`colormap` mapping](#-colormap--mapping)
-        * [`combine` mapping](#-combine--mapping)
+        * [`direct` mapping](#direct-mapping)
+        * [`discrete` mapping](#discrete-mapping)
+        * [`linear` mapping](#linear-mapping)
+        * [`cont2disc` mapping](#cont2disc-mapping)
+        * [`colormap` mapping](#colormap-mapping)
+        * [`combine` mapping](#combine-mapping)
 
 
 ## INSTALLATION
