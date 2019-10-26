@@ -278,9 +278,24 @@ clusters, you can provide a simple list such as:
 clusters: [nodegroup1, nodegroup2, nodegroup4]
 ~~~
 
-If you want to specify visual attributes, it's better to use the
-"dash" notation, and provide key-value pairs defining the attributes
-for each cluster, e.g.:
+If you want to specify visual attributes, you can provide the cluster
+definitions in a dictionary, providing the attributes as key-value
+pairs, e.g:
+
+~~~yaml
+clusters:
+  nodegroup1:
+    label: First cluster
+    fontsize: 10
+  nodegroup2:
+    style: filled
+    fillcolor: grey
+  nodegroup4:
+~~~
+
+Here, we did not provide attributes for `nodegroup4`, but note that
+the `:` is still needed. Alternatively, a list can also be used, using
+the "dash" notation:
 
 ~~~yaml
 clusters:
@@ -292,9 +307,6 @@ clusters:
       fillcolor: grey
   - nodegroup4
 ~~~
-
-(Here, we did not provide attributes for _nodegroup4_, thus it will be
-drawn with default attributes.)
 
 See the [Configuration File Reference](configfile.md) for the full
 specification.

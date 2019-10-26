@@ -70,8 +70,8 @@
 * **clusters:** **_nodegroup1_** | **[_nodegroup1, nodegroup2, ..._]**  
   Define clusters as node groups (simple form without style specifications). Node groups should be listed in brackets (which can be omitted if there is only one cluster). The **dot** and **fdp** layout algorithms will draw a box around the nodes belonging to a cluster. Only node groups defined above under the **nodegroups** keyword can be used. If you simply list the node groups corresponding to clusters, they will be drawn with the default cluster styles. Otherwise, you can specify styles for each cluster, see below.
 * **clusters:**  
-  Define clusters as node groups, specifying styles for each cluster. A list should be provided below, i.e. use the dash (`-`) in front of node group names. Only node groups defined above under the nodegroups keyword can be used.
-    * **- _nodegroup1_:**  
+  Define clusters as node groups, specifying styles for each cluster. Only node groups defined above under the nodegroups keyword can be used.
+    * **_nodegroup1_:**  
       Specify Graphviz cluster attribute name-value pairs below. These will be used for the cluster corresponding to this node group.
         * **_attributename: attributevalue_**  
           A Graphviz cluster attribute name and its value. See available cluster attributes (indicated by the letter C) in the [Graphviz documentation](https://www.graphviz.org/doc/info/attrs.html).  Commonly used cluster attributes include `color`, `fillcolor`, `label`, `labelloc`, `fontname`, `fontsize`, `fontcolor`, `style` (= `solid`, `dashed`, `dotted`, `rounded`, `filled`, etc.)
@@ -82,9 +82,20 @@
       Cluster attributes for another node group, if any.
         * **_attributename: attributevalue_**  
           As above.
-        * **_nodegroup3_**  
-          If you don't want to provide cluster attributes, it's enough to provide the node group name.
         * ...
+    * **_nodegroup3_:**  
+      If you don't want to provide cluster attributes, it's enough to provide the node group name, but make sure you place a colon (`:`) after it.
+* **clusters:**  
+  Alternative form of defining clusters: provide a list instead of a dictionary. Use the dash (`-`) in front of node group names. 
+    * **- _nodegroup1_:**
+        * **_attributename: attributevalue_**  
+          See above
+        * ...
+    * **- _nodegroup2:_**
+        * **_attributename: attributevalue_**
+        * ...
+    * **_- nodegroup3_**  
+      If you don't want to provide cluster attributes, it's enough to provide the node group name (note the dash `-` is needed but no colon `:` must be used).
 * **addrankings:**  
   Add table columns containing rankings of values in existing columns; optional. These new columns can then be used for visual style definitions.
     * **_columnname_:**  

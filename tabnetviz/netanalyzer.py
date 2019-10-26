@@ -9,11 +9,11 @@
 import sys
 import difflib
 from collections import OrderedDict
+
 import networkx as nx
 import pandas as pd
 
 from tabnetviz.kwcheck import kwcheck
-
         
 def Degree(G):
     return G.degree

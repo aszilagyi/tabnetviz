@@ -69,6 +69,18 @@ edgegroups:                # optional; define edge groups using boolean queries
 # Define clusters (note: layout must be dot or fdp)
 # (clusters are node groups with a box drawn around them)
 #
+clusters: group1
+# alternative form:
+clusters: [group1, group2]
+# specifying clusters with visual attributes:
+clusters:
+  group1:                # a previously defined node group name
+    attrname1: value1    # a Graphviz cluster attribute and its value
+    attrname2: value2
+  group2:                # another node group
+    attrname: value
+  group3:                 # this cluster will use default attributes (":" is necessary!)
+# alternative form using a list:
 clusters:
   - group1:                # a previously defined node group name
       attrname1: value1    # a Graphviz cluster attribute and its value
@@ -165,7 +177,7 @@ nodestyles:                # define node styles for node groups
       type: combine        # combine previously defined attributes
       attrlist:            # list of attributes to combine
         - ngattr1
-	- ngattr2          # can also use "attrlist: [ngattr1, ngattr2]"
+        - ngattr2          # can also use "attrlist: [ngattr1, ngattr2]"
       formatstring: '%f,%f!' # old-style Python format string to combine attributes
   #
   # styles for nodes in node group "group2"
@@ -178,12 +190,12 @@ nodestyles:                # define node styles for node groups
 #
 edgestyles:                # define edge styles for edge groups
   default:                 # optional; default style
-    attribute:              # a graphviz edge attribute name
+    attribute:             # a graphviz edge attribute name
     # ... continue as with nodestyles
   group1:                  # an edge group name
-    attribute:              # a graphviz edge attribute name
+    attribute:             # a graphviz edge attribute name
     # ... continue as with nodestyles
   group2:                  # an edge group name           
-    attribute:		   # a graphviz edge attribute name
+    attribute:             # a graphviz edge attribute name
     # ... continue as with nodestyles
 """

@@ -12,12 +12,14 @@ import os
 import argparse
 from time import sleep
 from collections import OrderedDict, Counter
+
 # 3rd party imports
 import yaml
 import yamlloader
 import pygraphviz as pgv
 import pandas as pd
 from matplotlib import cm, colors
+
 # own imports
 from tabnetviz.gvattrs import gvattrs
 from tabnetviz import netanalyzer
@@ -339,10 +341,12 @@ def table2net(configfile):
     if 'clusters' in conf:
         if type(conf['clusters']) == str:
             conf['clusters'] = [conf['clusters']]
-        if type(conf['clusters']) != list:
-            raise ValueError('Clusters must be defined as a list (or string)')
         if conf.get('layout', 'neato') not in ['dot', 'fdp']:
             raise ValueError('Only dot and fdp support clusters.')
+        if type(conf['clusters']) == OrderedDict: # dict was provided, not list
+            # convert dict to list
+            conf['clusters'] = [OrderedDict({g: conf['clusters'][g] if conf['clusters'][g] 
+              else OrderedDict()}) for g in conf['clusters']]
         # make a dictionary for clusters
         clusdefs = OrderedDict()
         for clusdef in conf['clusters']:
@@ -359,6 +363,7 @@ def table2net(configfile):
                 kwcheck(list(clusdefs[clusname]), gvattrs['C'],
                   name='cluster attribute|cluster attributes', context=' in cluster '+clusname)
             else:
+                print(clusdef, type(clusdef))
                 raise ValueError('Clusters must be node group names with/without attributes')
         # make node sets out of clusters
         clusnodesets = OrderedDict((ngname, set(nodegroups[ngname])) for ngname in clusdefs)
