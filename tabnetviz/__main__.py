@@ -21,6 +21,7 @@ import pandas as pd
 from matplotlib import cm, colors
 
 # own imports
+from tabnetviz import __version__
 from tabnetviz.gvattrs import gvattrs
 from tabnetviz import netanalyzer
 from tabnetviz import colorbarsvg
@@ -699,9 +700,9 @@ def table2net(configfile):
 
 def main():
     # parse arguments
-    parser = argparse.ArgumentParser(description='Table-based network visualizer',
-      epilog='See https://git.io/tabnetviz for documentation. '
-        'Copyright 2019 Andras Szilagyi. Distributed under GNU GPL version 3.')
+    epi = 'Tabnetviz v'+__version__+'. See https://git.io/tabnetviz for documentation.'
+    epi += ' Copyright 2019 Andras Szilagyi. Distributed under GNU GPL version 3.'
+    parser = argparse.ArgumentParser(description='Table-based network visualizer', epilog=epi)
     parser.add_argument('-w', '--watch', action='store_true', 
       help='Watch the config file and re-run upon detecting a change')
     parser.add_argument('--configtemplate', action='store_true',
