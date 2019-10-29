@@ -71,6 +71,7 @@ more details.)
 * [Tutorial](docs/tutorial.md): a brief tutorial with introductory examples
 * [Configuration File Reference](docs/configfile.md): full description
 of configuration file options.
+* [Demo visualization](docs/demo.md) of a complex network
 
 A configuration file template can also be output from the program
 using the `--configtemplate` option; this can be used as a start for
