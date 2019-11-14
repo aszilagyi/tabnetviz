@@ -1,3 +1,5 @@
+<meta name="google-site-verification" content="7asBZi0WoYRlDGiXV_1S_Zf2-K1RfKcX1Cg7SP7RDs8" />
+
 # Tabnetviz - table-based network visualizer
 
 ![sample network](galFiltered.svg)
