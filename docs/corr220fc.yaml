@@ -1,0 +1,39 @@
+networktype: undirected      # directed | undirected
+edgetable:
+  filetype: csv            # optional, csv/tsv/xlsx/xls
+  file: corr220c8.csv         # .csv, .tsv, .xlsx/.xls
+  sourcecolumn: source     # name of source column (col1 if noheader is true)
+  targetcolumn: target     # name of target column (col2 if noheader is true)
+nodetable:                 # optional; nodes will be inferred from edge table if omitted
+  file: TBDE-PE-detr.csv       # .csv, .tsv, .xlsx/.xls
+  idcolumn: Gene symbol         # name of node id column
+outputfiles: 
+  drawing: corr220fc.svg         # name of output file
+layout: neato              # neato|dot|twopi|circle|fdp|sfdp|patchwork|dotfilename
+networkanalysis: false     # set to true to generate a number of graph theoretical quantities
+nodegroups:                # optional; define node groups using boolean queries
+  PE: TBDEPEgene == 'YES'            # node group name: boolean expression with node table column names
+graphattrs:
+  outputorder: edgesfirst
+  overlap: false
+nodestyles:                # define node styles for node groups
+  default:                 # optional; default style
+    shape: circle
+    fontname: Helvetica-Bold
+    width: 1.0
+    fillcolor:
+      type: colormap
+      colexpr: TBDElogFC
+      centerzero: alignfarther
+      colormap: bwr
+    style: filled
+    penwidth: 1
+  PE:
+    color:
+      type: colormap
+      colexpr: PlacLogfoldchange
+      centerzero: alignfarther
+      colormap: bwr
+    penwidth: 30
+    width: 3
+    fontsize: 40.0

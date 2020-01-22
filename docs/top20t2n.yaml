@@ -1,0 +1,132 @@
+networktype: directed
+edgetable:
+  file: top20edgetable.csv
+nodetable:
+  file: top20nodetable.csv
+outputfiles:
+  drawing: top20t2n.svg
+layout: neato
+graphattrs:
+  outputorder: edgesfirst
+  splines: spline
+  overlap: True # needed when node positions are explicitly provided in pos attribute
+nodegroups:
+  plac20: group == 'plac20'
+  nonplac20: group == 'nonplac20'
+  tfplac: group == 'tfplac'
+  tfnonplac: group == 'tfnonplac'
+  tfboth: group == 'tfboth'
+  hasfc: modulegroup != '-'
+  top20: group == 'plac20' or group == 'nonplac20'
+  alltf: istf
+  tf: group == 'tfplac' or group == 'tfnonplac' or group == 'tfboth'
+  trtop20: istr and top20
+colormaps:
+  bgr:
+    type: continuous
+    map:
+      0.0: '#4040ff'
+      0.5: '#ffffff'
+      1.0: '#ff4040'
+nodestyles:
+  default:
+    fontname: Helvetica-Bold
+    fontsize: 24
+    fontcolor: white
+  tfplac:
+    ngx: 0.0
+    ngy:
+      type: linear
+      colexpr: rank
+      mapmin: 10.0
+      mapmax: -7.0
+      withingroup: true
+    pos:
+      type: combine
+      attrlist: [ngx, ngy]
+      formatstring: '%f,%f!'
+  plac20:
+    ngx: 5.0
+    ngy:
+      type: direct
+      colexpr: 11.0-rank
+  tfboth:
+    ngx: 10.0
+    ngy:
+      type: linear
+      colexpr: rank
+      mapmin: 8.0
+      mapmax: -5.0
+      withingroup: true
+    pos:
+      type: combine
+      attrlist: [ngx, ngy]
+      formatstring: '%f,%f!'
+  nonplac20:
+    ngx: 15.0
+    ngy:
+      type: direct
+      colexpr: 12.5-1.15*rank
+  tfnonplac:
+    ngx: 20.0
+    ngy:
+      type: linear
+      colexpr: rank
+      mapmin: 17.0
+      mapmax: -13.0
+      withingroup: true
+    pos:
+      type: combine
+      attrlist: [ngx, ngy]
+      formatstring: '%f,%f!'
+  top20:
+    shape: box
+    height:
+      type: linear
+      colexpr: abs(fc)
+      mapmin: 0.3
+      mapmax: 0.9
+    width:
+      type: linear
+      colexpr: abs(fc)
+      mapmin: 1.0
+      mapmax: 2.5
+    pos:
+      type: combine
+      attrlist: [ngx, ngy]
+      formatstring: '%f,%f!'
+  alltf:
+    color: '#008000'
+    penwidth: 1.0
+  tf:
+    fontcolor: black
+    style: filled
+    fillcolor: white
+    color:
+      type: discrete
+      colexpr: modulegroup
+      map:
+        P: red
+        N: '#008000'
+  hasfc:
+    style: rounded,filled
+    fillcolor:
+      type: colormap
+      colexpr: fc
+      centerzero: alignfarther
+      colormap: bgr
+  trtop20:
+    fontcolor: '#00ff00'
+edgestyles:
+  default:
+    penwidth:
+      type: linear
+      colexpr: abs(corr)
+      mapmin: 2.0
+      mapmax: 8.0
+    color:
+      type: colormap
+      colexpr: corr
+      centerzero: alignfarther
+      colormap: bgr
+    arrowhead: normal

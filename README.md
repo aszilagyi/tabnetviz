@@ -72,6 +72,7 @@ more details.)
 * [Configuration File Reference](docs/configfile.md): full description
 of configuration file options.
 * [Demo visualization](docs/demo.md) of a complex network
+* [Gallery](docs/gallery.md) of visualizations created with tabnetviz.
 
 A configuration file template can also be output from the program
 using the `--configtemplate` option; this can be used as a start for

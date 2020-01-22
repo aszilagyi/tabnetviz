@@ -219,7 +219,9 @@ graph. Any graph attributes known to Graphviz can be used; see the
 [Graphviz website](https://www.graphviz.org/doc/info/attrs.html) for a
 list of available visual attributes. **Tabnetviz** will set
 `outputorder: edgesfirst` and `overlap: false` by default for a nicer
-visual appearance of the graph.
+visual appearance of the graph. (Note: `overlap` must be set to `true`
+if you want to set fixed coordinates for the nodes using the `pos`
+attribute.)
 
 ### NETWORK ANALYSIS
 
@@ -661,6 +663,8 @@ Set node coordinates from "x" and "y" columns in the table. We
 combine them to the `pos` attribute by joining them with a comma:
 
 ~~~yaml
+graphattrs:
+  overlap: True
 nodestyles:
   default:
     pos:
@@ -670,7 +674,8 @@ nodestyles:
 ~~~
 
 The exclamation mark at the end of the format string is to force the
-layout algorithm to keep the position fixed.
+layout algorithm to keep the position fixed. For this to work, the
+`overlap` graph attribute must be set to `True` as shown.
 
 Often, the attributes to combine are not in the table but need to be
 created first by using a mapping. In this case, non-Graphviz

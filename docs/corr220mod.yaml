@@ -1,0 +1,53 @@
+networktype: undirected      # directed | undirected
+edgetable:
+  filetype: csv            # optional, csv/tsv/xlsx/xls
+  file: corr220c8.csv         # .csv, .tsv, .xlsx/.xls
+  sourcecolumn: source     # name of source column (col1 if noheader is true)
+  targetcolumn: target     # name of target column (col2 if noheader is true)
+nodetable:                 # optional; nodes will be inferred from edge table if omitted
+  file: TBDE-PE-detr.csv       # .csv, .tsv, .xlsx/.xls
+  idcolumn: Gene symbol         # name of node id column
+outputfiles: 
+  drawing: corr220mod.svg         # name of output file
+layout: neato              # neato|dot|twopi|circle|fdp|sfdp|patchwork|dotfilename
+networkanalysis: false     # set to true to generate a number of graph theoretical quantities
+nodegroups:                # optional; define node groups using boolean queries
+  PE: TBDEPEgene == 'YES'       # node group name: boolean expression with node table column names
+graphattrs:
+  outputorder: edgesfirst
+  overlap: false
+nodestyles:                # define node styles for node groups
+  default:                 # optional; default style
+    shape: circle
+    fontname: Helvetica-Bold
+    width: 1.0
+    fillcolor:
+      type: discrete
+      colexpr: TBDEModule
+      map:
+        M1 - brown: '#a52a2a'
+        M2 - pink: '#ffc0cb'
+        M3 - magenta: '#ff00ff'
+        M4 - turquoise: '#40e0d0'
+        M5 - blue: '#0000ff'
+        M6 - green: '#00ff00'
+        M7 - red: '#ff0000'
+        M8 - yellow: '#ff0000'
+        M9 - black: '#000000'
+    style: filled
+    fontcolor:
+      type: discrete
+      colexpr: TBDEModule
+      map:
+        M1 - brown: white
+        M5 - blue: white
+        M7 - red: white
+        M9 - black: white
+    penwidth: 1
+  PE:
+    color:
+      type: direct
+      colexpr: PlacModulecolors
+    penwidth: 30
+    width: 3
+    fontsize: 40.0
