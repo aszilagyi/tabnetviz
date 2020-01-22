@@ -17,7 +17,10 @@ paper](https://www.mdpi.com/1422-0067/21/2/628), see the paper for an explanatio
 
 ## Gene co-expression network
 
-![corr20mod.svg](corr20mod.svg)
+JPEG files are included here because Github does not handle SVG
+correctly.
+
+![corr20mod.jpg](corr20mod.jpg)
 
 * [Node table](TBDE-PE-detr.csv)
 * [Edge table](corr220c8.csv)
@@ -26,7 +29,7 @@ paper](https://www.mdpi.com/1422-0067/21/2/628), see the paper for an explanatio
 This is Figure 10a in [our
 paper](https://www.mdpi.com/1422-0067/21/2/628), see the paper for an explanation.
 
-![corr20fc.svg](corr20mod.svg)
+![corr20fc.jpg](corr20mod.jpg)
 
 * [Node table](TBDE-PE-detr.csv)
 * [Edge table](corr220c8.csv)

@@ -8,7 +8,7 @@ nodetable:                 # optional; nodes will be inferred from edge table if
   file: TBDE-PE-detr.csv       # .csv, .tsv, .xlsx/.xls
   idcolumn: Gene symbol         # name of node id column
 outputfiles: 
-  drawing: corr220fc.svg         # name of output file
+  drawing: corr220fc.jpg         # name of output file
 layout: neato              # neato|dot|twopi|circle|fdp|sfdp|patchwork|dotfilename
 networkanalysis: false     # set to true to generate a number of graph theoretical quantities
 nodegroups:                # optional; define node groups using boolean queries
@@ -16,6 +16,7 @@ nodegroups:                # optional; define node groups using boolean queries
 graphattrs:
   outputorder: edgesfirst
   overlap: false
+  dpi: 48
 nodestyles:                # define node styles for node groups
   default:                 # optional; default style
     shape: circle
