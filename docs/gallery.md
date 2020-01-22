@@ -10,7 +10,7 @@ visualization. See a further example in the [demo](demo.md).
 
 * [Node table](top20nodetable.csv)
 * [Edge table](top20edgetable.csv)
-* [Config file](top20.yaml)
+* [Config file](top20t2n.yaml)
 
 This is Figure 9 in [our
 paper](https://www.mdpi.com/1422-0067/21/2/628), see the paper for an explanation.
