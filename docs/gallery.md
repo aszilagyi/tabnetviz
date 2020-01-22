@@ -9,7 +9,7 @@ See a further example in the [demo](demo.md).
 [<img src="top20t2n.svg" width="500">](top20t2n.svg)
 
 * [Node table](top20nodetable.csv)
-* {Edge table](top20edgetable.csv)
+* [Edge table](top20edgetable.csv)
 * [Config file](top20.yaml)
 
 This is Figure 9 in [our
