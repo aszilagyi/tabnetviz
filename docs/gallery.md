@@ -1,12 +1,12 @@
 # Gallery of visualizations created with Tabnetviz
 
-We provide the node table, edge table, and tabnetviz configuration
-file for each visualization. See a further example in the
-[demo](demo.md).
+Click on the images to view them in large size. We provide the node
+table, edge table, and tabnetviz configuration file for each
+visualization. See a further example in the [demo](demo.md).
 
 ## Transcription factor network
 
-![top20t2n.svg](top20t2n.svg)
+[<img src="top20t2n.svg" width="400">](top20t2n.svg)
 
 * [Node table](top20nodetable.csv)
 * [Edge table](top20edgetable.csv)
@@ -17,10 +17,7 @@ paper](https://www.mdpi.com/1422-0067/21/2/628), see the paper for an explanatio
 
 ## Gene co-expression network
 
-JPEG files are included here because Github does not handle SVG
-correctly.
-
-![corr20mod.jpg](corr20mod.jpg)
+[<img src="corr220mod.svg" width="400">](corr220mod.svg)
 
 * [Node table](TBDE-PE-detr.csv)
 * [Edge table](corr220c8.csv)
@@ -29,7 +26,7 @@ correctly.
 This is Figure 10a in [our
 paper](https://www.mdpi.com/1422-0067/21/2/628), see the paper for an explanation.
 
-![corr20fc.jpg](corr20mod.jpg)
+[<img src="corr220fc.svg" width="400">](corr220fc.svg)
 
 * [Node table](TBDE-PE-detr.csv)
 * [Edge table](corr220c8.csv)
