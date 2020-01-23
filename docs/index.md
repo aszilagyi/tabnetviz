@@ -1,6 +1,4 @@
-#### **Home** | [User Guide](userguide.md) |
-[Tutorial](tutorial.md) | [Config file reference](configfile.md) |
-[Demo](demo.md) | [Gallery](gallery.md)
+#### **Home** | [User Guide](userguide.md) | [Tutorial](tutorial.md) | [Config file reference](configfile.md) | [Demo](demo.md) | [Gallery](gallery.md)
 
 # Tabnetviz - table-based network visualizer
 

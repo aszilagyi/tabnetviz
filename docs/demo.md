@@ -1,6 +1,4 @@
-#### [Home](index.md) | [User Guide](userguide.md) |
-[Tutorial](tutorial.md) | [Config file reference](configfile.md) |
-**Demo** | [Gallery](gallery.md)
+#### [Home](index.md) | [User Guide](userguide.md) | [Tutorial](tutorial.md) | [Config file reference](configfile.md) | **Demo** | [Gallery](gallery.md)
 
 # A demo visualization by Tabnetviz
 

@@ -1,6 +1,4 @@
-#### [Home](index.md) | [User Guide](userguide.md) |
-**Tutorial** | [Config file reference](configfile.md) |
-[Demo](demo.md) | [Gallery](gallery.md)
+#### [Home](index.md) | [User Guide](userguide.md) | **Tutorial** | [Config file reference](configfile.md) | [Demo](demo.md) | [Gallery](gallery.md)
 
 # Tabnetviz tutorial
 
