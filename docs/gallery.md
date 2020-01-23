@@ -1,3 +1,7 @@
+#### [Home](index.md) | [User Guide](userguide.md) |
+[Tutorial](tutorial.md) | [Config file reference](configfile.md) |
+[Demo](demo.md) | **Gallery**
+
 # Gallery of visualizations created with Tabnetviz
 
 Click on the images to view them in large size. We provide the node
