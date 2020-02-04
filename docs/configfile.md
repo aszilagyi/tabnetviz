@@ -1,3 +1,7 @@
+---
+title: Tabnetviz configuration options
+---
+
 #### [Home](index.md) | [User Guide](userguide.md) | [Tutorial](tutorial.md) | **Config file reference** | [Demo](demo.md) | [Gallery](gallery.md)
 
 ## tabnetviz yaml configuration file documentation

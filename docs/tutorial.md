@@ -1,6 +1,10 @@
+---
+title: Tabnetviz Tutorial
+---
+
 #### [Home](index.md) | [User Guide](userguide.md) | **Tutorial** | [Config file reference](configfile.md) | [Demo](demo.md) | [Gallery](gallery.md)
 
-# Tabnetviz tutorial
+# Tabnetviz Tutorial
 
 To use **Tabnetviz**, you need 3 files: a **node table**, an **edge
 table**, and a **configuration file**. In this tutorial, we show how

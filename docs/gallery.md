@@ -1,3 +1,7 @@
+---
+title: Tabnetviz Gallery
+---
+
 #### [Home](index.md) | [User Guide](userguide.md) | [Tutorial](tutorial.md) | [Config file reference](configfile.md) | [Demo](demo.md) | **Gallery**
 
 # Gallery of visualizations created with Tabnetviz

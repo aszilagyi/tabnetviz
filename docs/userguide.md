@@ -1,3 +1,7 @@
+---
+title: Tabnetviz User Guide
+---
+
 #### [Home](index.md) | **User Guide** | [Tutorial](tutorial.md) | [Config file reference](configfile.md) | [Demo](demo.md) | [Gallery](gallery.md)
 
 # Tabnetviz User Guide
