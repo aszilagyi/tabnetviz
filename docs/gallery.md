@@ -43,7 +43,7 @@ paper](https://www.mdpi.com/1422-0067/21/2/628), see the paper for an explanatio
 
 ## Flowchart
 
-[<img src="tnv.svg">](tnv.svg)
+[<img src="tnv.svg" width="400">](tnv.svg)
 
 * [Node table](tnv-nodes.csv)
 * [Edge table](tnv-edges.csv)
