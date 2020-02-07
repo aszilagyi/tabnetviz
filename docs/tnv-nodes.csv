@@ -1,0 +1,10 @@
+name,description,type,subtype
+1,Node table\n(csv/tsv/xlsx),file,input
+2,Edge table\n(csv/tsv/xlsx),file,input
+3,Configuration file\n(yaml),file,input
+4,tabnetviz,program,program
+5,Drawing\n(svg or image),file,output
+6,dot file,file,optoutput
+7,Modified\nnode table,file,optoutput
+8,Modified\nedge table,file,optoutput
+9,Color bars\n(svg),file,optoutput

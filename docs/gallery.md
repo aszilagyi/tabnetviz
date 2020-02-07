@@ -40,3 +40,15 @@ paper](https://www.mdpi.com/1422-0067/21/2/628), see the paper for an explanatio
 
 This is Figure 10b in [our
 paper](https://www.mdpi.com/1422-0067/21/2/628), see the paper for an explanation.
+
+## Flowchart
+
+[<img src="tnv.svg">](tnv.svg)
+
+* [Node table](tnv-nodes.csv)
+* [Edge table](tnv-edges.csv)
+* [Config file](tnv.yaml)
+
+Tabnetviz can also be used to create flowcharts. Typically, the `dot`
+layout engine is used for that purpose. This flowchart illustrates the
+function of Tabnetviz.

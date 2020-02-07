@@ -1,0 +1,43 @@
+networktype: directed
+nodetable: tnv-nodes.csv
+edgetable: tnv-edges.csv
+layout: dot
+outputfiles: tnv.svg
+graphattrs:
+  rankdir: LR
+nodegroups:
+  files: type == 'file'
+  optional: subtype == 'optoutput'
+  program: type == 'program'
+edgegroups:
+  optional: optional
+clusters: 
+  - optional:
+      label: Optional
+      fontcolor: grey
+      color: grey
+      fontname: sans-serif
+      labelloc: b
+nodestyles:
+  default:
+    fontname: sans-serif
+    label:
+      type: direct
+      colexpr: description
+  program:
+    shape: ellipse
+    style: filled
+    fillcolor: blue
+    fontcolor: white
+    fontsize: 28
+    height: 1.0
+    width: 2.0
+    fixedsize: true
+  files:
+    shape: box
+  optional:
+    color: grey
+    fontcolor: grey
+edgestyles:
+  optional:
+    color: grey
