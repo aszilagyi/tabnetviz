@@ -7,7 +7,7 @@
 __author__ = "Andras Szilagyi"
 __copyright__ = "Copyright 2019 Andras Szilagyi"
 __license__ = "GPLv3"
-__version__ = "1.1.0"
+__version__ = "1.1.2"
 __maintainer__ = "Andras Szilagyi"
 __email__ = "szilagyi.andras@ttk.hu"
 __status__ = "Production"
