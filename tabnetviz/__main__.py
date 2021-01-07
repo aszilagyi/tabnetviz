@@ -32,6 +32,7 @@ from tabnetviz.kwcheck import kwcheck
 def parseconfig(fname):
     '''parse yaml configuration file'''
     f = open(fname)
+    yamlloader.settings.PY_LE_36 = True # otherwise loads dict instead of ordereddict
     conf = yaml.load(f, Loader=yamlloader.ordereddict.CLoader)
     f.close()
     return conf
