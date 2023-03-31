@@ -145,8 +145,8 @@ def table2net(configfile):
         sourcecolumn = 'col1'
         targetcolumn = 'col2'
     else:
-        sourcecolumn = conf['edgetable'].get('source', 'source')
-        targetcolumn = conf['edgetable'].get('target', 'target')
+        sourcecolumn = conf['edgetable'].get('sourcecolumn', 'source')
+        targetcolumn = conf['edgetable'].get('targetcolumn', 'target')
         
     if sourcecolumn not in edgetab.columns:
         raise ValueError('Column "%s" not found in edge table' % (sourcecolumn))
