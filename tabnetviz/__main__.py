@@ -112,11 +112,14 @@ def table2net(args):
     sepchar = {'csv': ',', 'tsv': '\t'}
 
     # load edge table
+    if args.edgetable: # file name specified on command line
+        if 'edgetable' not in conf:
+            conf['edgetable'] = {'file': args.edgetable}
+        else:
+            conf['edgetable']['file'] = args.edgetable
     if type(conf['edgetable']) == str: # only a filename is provided
         conf['edgetable'] = {'file': conf['edgetable']}
     etfile = conf['edgetable']['file']
-    if args.edgetable: # edge table file name specified on command line
-        etfile = args.edgetable
     header = None if conf['edgetable'].get('noheader', False) else 0
     
     if 'filetype' in conf['edgetable']:
@@ -168,11 +171,14 @@ def table2net(args):
         nodetab.index = list(nodetab['name'])
         idcolumn = 'name'
     else:
+        if args.nodetable: # file specified on command line
+            if 'nodetable' not in conf:
+                conf['nodetable'] = {'file': args.nodetable}
+            else:
+                conf['nodetable']['file'] = args.nodetable
         if type(conf['nodetable']) == str:
             conf['nodetable'] = {'file': conf['nodetable']} # only a filename is given
         ntfile = conf['nodetable']['file']
-        if args.nodetable:
-            ntfile = args.nodetable # node table file name specified on command line
         header = None if conf['nodetable'].get('noheader', False) else 0
         if 'filetype' in conf['nodetable']:
             ftype = conf['nodetable']['filetype']

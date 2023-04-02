@@ -10,7 +10,7 @@ title: Tabnetviz configuration options
 * **title:** **_title_**\
   A title for the network; optional. For svg output, the title will be shown when the cursor hovers over the background. Default: "network". If you want to display a title for the graph, use the **label** attribute under the **graphattrs** keyword.
 * **edgetable:**\
-  Edge table specification; mandatory. If you only provide a file name and don't use any of the other parameters below, you can use `edgetable:` **_filename_**.
+  Edge table specification; mandatory unless the edge table file name is specified on the command line (`-e` option). If you only provide a file name and don't use any of the other parameters below, you can use `edgetable:` **_filename_**.
     * **file:** **_filename_**\
       File name; mandatory. Can be overridden on the command line using the `-e` option.
     * **filetype:** `csv`|`tsv`|`xlsx`|`xls`\
