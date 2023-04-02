@@ -101,8 +101,9 @@ def cont2disc(x, cdmap):
             return cdmap[h]
     return cdmap['higher']
         
-def table2net(configfile):
+def table2net(args):
     '''create visualization'''
+    configfile = args.configfile
     conf = parseconfig(configfile)
     checkkeywords(conf) # do some input validation
     
@@ -114,6 +115,8 @@ def table2net(configfile):
     if type(conf['edgetable']) == str: # only a filename is provided
         conf['edgetable'] = {'file': conf['edgetable']}
     etfile = conf['edgetable']['file']
+    if args.edgetable: # edge table file name specified on command line
+        etfile = args.edgetable
     header = None if conf['edgetable'].get('noheader', False) else 0
     
     if 'filetype' in conf['edgetable']:
@@ -145,8 +148,8 @@ def table2net(configfile):
         sourcecolumn = 'col1'
         targetcolumn = 'col2'
     else:
-        sourcecolumn = conf['edgetable'].get('sourcecolumn', 'source')
-        targetcolumn = conf['edgetable'].get('targetcolumn', 'target')
+        sourcecolumn = conf['edgetable'].get('sourcecolumn', edgetab.columns[0])
+        targetcolumn = conf['edgetable'].get('targetcolumn', edgetab.columns[1])
         
     if sourcecolumn not in edgetab.columns:
         raise ValueError('Column "%s" not found in edge table' % (sourcecolumn))
@@ -157,7 +160,7 @@ def table2net(configfile):
     nodesfromedges = set(edgetab[sourcecolumn]) | set(edgetab[targetcolumn])
     
     # load node table
-    if 'nodetable' not in conf:
+    if 'nodetable' not in conf and not args.nodetable:
         # infer node table from edge table
         nodes = set(edgetab[sourcecolumn]) | set(edgetab[targetcolumn])
         nodetab = pd.DataFrame()
@@ -168,6 +171,8 @@ def table2net(configfile):
         if type(conf['nodetable']) == str:
             conf['nodetable'] = {'file': conf['nodetable']} # only a filename is given
         ntfile = conf['nodetable']['file']
+        if args.nodetable:
+            ntfile = args.nodetable # node table file name specified on command line
         header = None if conf['nodetable'].get('noheader', False) else 0
         if 'filetype' in conf['nodetable']:
             ftype = conf['nodetable']['filetype']
@@ -184,7 +189,7 @@ def table2net(configfile):
               sheet_name=conf['nodetable'].get('sheet', 0))
         else:
             raise ValueError('Unknown node table file type: %s' % (ftype))
-        idcolumn = conf['nodetable'].get('idcolumn', 'name')
+        idcolumn = conf['nodetable'].get('idcolumn', nodetab.columns[0])
         if idcolumn not in nodetab.columns:
             raise ValueError('Column "%s" not found in node table' % (idcolumn))
         # delete isolated nodes if requested
@@ -213,6 +218,16 @@ def table2net(configfile):
     elif type(conf['outputfiles']) == OrderedDict and 'drawing' not in conf['outputfiles']:
         conf['outputfiles']['drawing'] = 'out.svg'
 
+    if args.output: # drawing output file specified on command line
+        conf['outputfiles']['drawing'] = args.output
+
+    # set optional node and edge table output files from command line
+    
+    if args.nodetableout:
+        conf['outputfiles']['nodetableout'] = args.nodetableout
+    if args.edgetableout:
+        conf['outputfiles']['edgetableout'] = args.edgetableout
+    
     # perform network analysis if requested
     
     directed = conf.get('networktype', 'undirected') == 'directed'
@@ -706,6 +721,11 @@ def main():
     parser = argparse.ArgumentParser(description='Table-based network visualizer', epilog=epi)
     parser.add_argument('-w', '--watch', action='store_true', 
       help='Watch the config file and re-run upon detecting a change')
+    parser.add_argument('-n', '--nodetable', help='node table file name')
+    parser.add_argument('-e', '--edgetable', help='edge table file name')
+    parser.add_argument('-o', '--output', help='output file for the drawing')
+    parser.add_argument('--nodetableout', help='file name for writing modified node table')
+    parser.add_argument('--edgetableout', help='file name for writing modified edge table')
     parser.add_argument('--configtemplate', action='store_true',
       help='Write a configuration template to the specified file and exit')
     parser.add_argument('configfile', help='Configuration file')
@@ -724,7 +744,7 @@ def main():
         sys.exit()
     
     # create visualization
-    table2net(a.configfile)
+    table2net(a)
     
     # watch if -w is given
     if a.watch:

@@ -79,7 +79,8 @@ more details.)
 
 ## COMMAND LINE
 
-`tabnetviz [-h] [-w] [--configtemplate]` _`configfile`_
+`tabnetviz [-h] [-w] [-n` _`nodetable`_`] [-e` _`edgetable`_`] [-o`
+_`drawingoutput`_`] [--nodetableout` _`nodeout`_`] [--edgetableout` _`edgeout`_`] [--configtemplate]` _`configfile`_
 
 * `-h`: print a help message
 * `-w`: "watch" mode: the program will not exit after generating the
@@ -90,6 +91,20 @@ an image, using this option along with an image viewer that also
 reloads the image upon a file change allows one to develop the
 configuration file semi-interactively. `qiv` for Linux is an example
 of a suitable image viewer (use it with the `-T` option).
+* `-n | --nodetable` _`nodetable`_: the node table file name can be
+specified here; this will override the name specified in the
+configuration file. This is useful in scripts if you want to generate
+several drawings from different inputs but the same graphical settings.
+* `-e | --edgetable` _`edgetable`_: the edge table file name can be
+specified here; this will override the name specified in the
+configuration file.
+* `-o | --output` _`drawingoutput`_: the output file name for the
+drawing (e.g. `.svg` file). This will override the setting in the
+configuration file.
+* `--nodetableout` _`nodeout`_: file name to write out the modified
+node table; overrides the setting in the configuration file.
+* `--edgetableout` _`edgeout`_: file name to write out the modified
+edge table; overrides the setting in the configuration file.
 * `--configtemplate`: write a configuration file template to the
 specified file (the file must not exist). This can be edited to
 develop a configuration file for your visualization.
@@ -153,19 +168,24 @@ A node table and an edge table should be prepared as CSV or TSV files
 or Excel worksheets (xls or xlsx files). These are specified under the
 `/nodetable` and `/edgetable` keywords, respectively. You can either
 provide the filename directly (such as `edgetable: edges.csv`), or
-provide other parameters as well under the `/nodetable` or `/edgetable`
-keyword. In the latter case, the `file` keyword specifies the file
-name, `filetype` the file type (optional). For Excel files, the sheet
-name can be specified using the `sheetname` keyword. For the edge
-table, the columns containing the source and target identifiers should
-be specified as `sourcecolumn` and `targetcolumn` (`source` and
-`target` by default). For the node table, the column containing the
-node identifier should be specified using the `idcolumn` keyword
-(`name` by default). For the node table, the `skipisolated` keyword
-can be used to omit isolated nodes from the network entirely. In edge
-tables exported from Cytoscape, the source and target identifiers are
-not in separate columns; set the `fromcytoscape` keyword to `true` to
-make the program handle it correctly.
+provide other parameters as well under the `/nodetable` or
+`/edgetable` keyword. In the latter case, the `file` keyword specifies
+the file name, `filetype` the file type (optional). For Excel files,
+the sheet name can be specified using the `sheetname` keyword. For the
+edge table, the columns containing the source and target identifiers
+should be specified as `sourcecolumn` and `targetcolumn` (if not
+provided then the first two columns will be used). For the node table,
+the column containing the node identifier should be specified using
+the `idcolumn` keyword (if not provided then the first column will be
+used). For the node table, the `skipisolated` keyword can be used to
+omit isolated nodes from the network entirely. In edge tables exported
+from Cytoscape, the source and target identifiers are not in separate
+columns; set the `fromcytoscape` keyword to `true` to make the program
+handle it correctly.
+
+The node and edge table file names can be overridden by using the `-n`
+and `-e` options, respectively. This is useful if you want to use the
+same configuration for several different networks.
 
 ### COLUMN NAME CONVERSION
 
@@ -193,7 +213,10 @@ file) containing the actual visualization; this is specified with the
 `/outputfiles/drawing` keyword (if omitted then the output will go to
 `out.svg`). If only a drawing is to be generated, the `drawing`
 keyword can be omitted and the short form can be used, such as
-`outputfiles: network.svg`. Other files can optionally be generated
+`outputfiles: network.svg`. The drawing output file name can be
+overridden on the command line using the `-o` option.
+
+Other files can optionally be generated
 with the following keywords under `/outputfiles`:
 
 * **dot**: A **.dot** file containing the layout. The dot file can be
@@ -203,7 +226,9 @@ table file after adding new columns from network analysis, added
 rankings, Boolean columns defining node/edge groups, and added
 non-Graphviz properties. Note that the exported files will contain the
 converted column names. The tables can be exported as csv, tsv, or
-Excel files, decided by the extension of the file name.
+Excel files, decided by the extension of the file name. These file
+names can be overridden using the `--nodetableout` and
+`--edgetableout` command line options.
 * **colorbars**: An SVG file containing color bars for the colormaps
 used in the node style and edge style mappings. These can then be used
 to create a legend for your visualization.
@@ -258,6 +283,12 @@ uses a slightly different definition.
 It is recommended that you explicity list the quantities you want to
 be calculated rather than specifying `all` because calculating all
 quantities may take a long time for large networks.
+
+Using the `nodetableout` and `edgetableout` keywords using command
+line options or under the `/outputfiles` section in the configuration
+file, the modified node and edge tables can be written into new files.
+These will contain the parameters calculated by the network analysis
+and can be used in other programs or analyses.
 
 ### DEFINING NODE GROUPS AND EDGE GROUPS
 

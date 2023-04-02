@@ -15,30 +15,33 @@ networktype: directed      # directed | undirected
 #
 #edgetable: edges.csv      # short form if you don't provide any other parameters
 edgetable:
-  filetype: xlsx           # csv|tsv|xlsx|xls (optional)
   file: edges.xlsx         # .csv, .tsv, .xlsx/.xls
+  filetype: xlsx           # csv|tsv|xlsx|xls (optional)
   sheet: Sheet1            # only for .xlsx/.xls, first sheet is used if omitted
   noheader: false          # true if table has no header line (col1, col2,... will be used)
-  sourcecolumn: source     # name of source column ("source" by default)
-  targetcolumn: target     # name of target column ("target" by default)
+  sourcecolumn: source     # name of source column (first column by default)
+  targetcolumn: target     # name of target column (second column by default)
   fromcytoscape: no        # set to yes if exported from Cytoscape
 #
 # Define node table
 #
 #nodetable: nodes.csv      # short form if you don't provide any other parameters
 nodetable:                 # optional; nodes will be inferred from edge table if omitted
-  filetype: xlsx           # csv|tsv|xlsx|xls (optional)
   file: example.xlsx       # .csv, .tsv, .xlsx/.xls
+  filetype: xlsx           # csv|tsv|xlsx|xls (optional)
   sheet: Sheet1            # only for .xlsx/.xls, first sheet is used if omitted
   noheader: false          # true if table has no header line (col1, col2, ... will be used)
-  idcolumn: name           # name of node id column ("name" by default)
+  idcolumn: name           # name of node id column (first column by default)
   skipisolated: false      # set to true to skip isolated nodes
 #
 # Output files
 #
 outputfiles:
-  drawing: file.svg        # for the drawing
-  dot: dotfile.dot         # for dot file containing positions after layout
+  drawing: file.svg         # for the drawing
+  dot: dotfile.dot          # optional, for dot file containing positions after layout
+  nodetableout: nodeout.csv # optional, for modified node table
+  edgetableout: edgeout.csv # optional, for modified edge table
+  colorbars: cb.svg         # for color bars, if specified
 #
 # Define layout
 #

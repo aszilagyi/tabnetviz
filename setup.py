@@ -6,7 +6,7 @@ with open('piplongdesc.md') as f:
 
 setup(
   name='tabnetviz',
-  version='1.1.2',
+  version='1.2',
   description='Table-based network visualizer',
   long_description=README,
   long_description_content_type='text/markdown',
