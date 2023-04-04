@@ -59,6 +59,14 @@ title: Tabnetviz configuration options
       Graph attribute name and value, see Graphviz documentation.
     * **_graphattrname_: _graphattrvalue_**\
       An arbitrary number of further graph attributes can be specified.  
+* **remove:**\
+  Remove some nodes and edges before laying out the network (optional). This will be done before the network analysis, if any.
+    * **nodes:** _columnexpression_\
+      A Boolean expression defining the set of nodes to remove. The expression can use node table column names and simple numerical or string operations on them. Examples: `Age < 10`, `Country == 'Germany'`.
+    * **edges:** _columnexpression_\
+      A Boolean expression defining the set of edges to remove. The expression should use edge table column names.
+    * **keepisolatednodes:** **`false`** | `true`\
+      Indicates whether nodes becoming isolated (degree=0) after the removal of edges should be kept. The default is false, i.e. they will be deleted. Note that nodes that were already isolated before the edge removal will not be removed.
 * **networkanalysis:** **`false`** | `all` | **_quantity_** | **[_quantity1, quantity2, ..._]**\
   Indicate whether a network analysis should be performed (`false` by default). Graph theoretical quantity names can be provided, either a single quantity, a list of quantities, or the keyword `all` to calculate all quantities. The calculated quantities will be added as new columns to the node table and the edge table, and can then be used to specify node styles and edge styles. The following quantities can be calculated for each node for both directed and undirected networks: **AverageShortestPathLength, BetweennessCentrality, ClosenessCentrality, ClusteringCoefficient, Degree, Connectivity, Eccentricity,  NeighborhoodConnectivity, SelfLoops, Stress**. For edges, **EdgeBetweenness** can be calculated. For directed networks only, **Indegree** and **Outdegree** can be calculated. For undirected networks only, **Radiality** and **TopologicalCoefficient** can be calculated. These quantity names match those calculated by the Network Analyzer plugin of Cytoscape, except for **Connectivity**, which is the number of neighbors of a node, as opposed to **Degree** which is the number of edges connecting to a node.
 * **nodegroups:**\
@@ -242,3 +250,4 @@ title: Tabnetviz configuration options
       The style can be for all edges (**default**) or a particular edge group.
         * ...\
           See **nodestyles** for descriptions of various mappings and their parameters; syntax is identical but edge table is used instead of node table, and edge groups instead of node groups.
+          

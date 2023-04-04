@@ -55,7 +55,8 @@ def checkkeywords(conf):
     # toplevel keywords with children
     top1kw = {'edgetable': etable,
               'nodetable': ntable,
-              'outputfiles': 'drawing dot nodetableout edgetableout colorbars'.split()}
+              'outputfiles': 'drawing dot nodetableout edgetableout colorbars'.split(),
+              'remove': ['nodes', 'edges', 'keepisolatednodes']}
     # toplevel keywords with grandkids
     top2kw = {'addrankings': 'table colexpr method reverse withingroup'.split(),
               'colormaps': 'type map'.split()}
@@ -233,7 +234,33 @@ def table2net(args):
         conf['outputfiles']['nodetableout'] = args.nodetableout
     if args.edgetableout:
         conf['outputfiles']['edgetableout'] = args.edgetableout
+
+    # remove nodes and edges if requested
     
+    if 'remove' in conf:
+        # remove nodes
+        if 'nodes' in conf['remove']:
+            x = nodetab.query(conf['remove']['nodes']).index
+            S = set(nodetab.loc[x, idcolumn]) # set of nodes to remove
+            nodetab.drop(index=x, inplace=True) # delete nodes
+            y = edgetab.query(sourcecolumn+' in @S or '+targetcolumn+' in @S').index
+            # delete edges belonging to the deleted nodes
+            edgetab.drop(index=y)
+        # remove edges
+        if 'edges' in conf['remove']: # remove edges
+            x = edgetab.query(conf['remove']['edges']).index
+            # set of nodes connected by the edges to remove
+            S = set(edgetab.loc[x, sourcecolumn]) | set(edgetab.loc[x, targetcolumn])
+            edgetab.drop(index=x, inplace=True) # delete edges
+            # remove nodes that have become isolated after edge removal 
+            # unless keeping them is requested
+            keep = conf['remove'].get('keepisolatednodes', False)
+            if not keep:
+                nonisol = set(edgetab.loc[:, sourcecolumn]) | set(edgetab.loc[:, targetcolumn])
+                becameisol = S-nonisol # became isolated due to the edge removal
+                x = nodetab.query(idcolumn+' in @becameisol').index
+                nodetab.drop(index=x, inplace=True) # delete these
+                
     # perform network analysis if requested
     
     directed = conf.get('networktype', 'undirected') == 'directed'
