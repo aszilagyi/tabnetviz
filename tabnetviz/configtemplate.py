@@ -45,7 +45,7 @@ outputfiles:
 #
 # Define layout
 #
-layout: neato              # neato|dot|twopi|circle|fdp|sfdp|patchwork (see graphviz docs)
+layout: neato              # neato|dot|twopi|circo|fdp|sfdp|patchwork|osage (see graphviz docs)
 #
 # Graph attributes (note: "outputorder: edgesfirst" and "overlap: false" are set by default)
 #

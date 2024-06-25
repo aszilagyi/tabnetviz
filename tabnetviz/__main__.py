@@ -313,8 +313,8 @@ def table2net(args):
         else:
             raise ValueError('graph in the input dot file %s differs from the graph specified '
                              'in the tables' % (conf['layout']))
-    elif conf.get('layout', 'neato') not in ['neato', 'dot', 'twopi', 'circle', 'fdp', 'sfdp',
-                  'patchwork']:
+    elif conf.get('layout', 'neato') not in ['neato', 'dot', 'twopi', 'circo', 'fdp', 'sfdp',
+                  'patchwork', 'osage']:
         raise ValueError('layout should be one of neato, dot, twopi, circle, fdp, sfdp, '
                          'patchwork, or a .dot file name')
         

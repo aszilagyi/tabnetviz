@@ -238,7 +238,7 @@ to create a legend for your visualization.
 
 The `/layout` keyword can be used to set the graph layout algorithm.
 Any algorithm known to Graphviz can be used, i.e. `neato`, `dot`,
-`twopi`, `circle`, `fdp`, `sfdp`, and `patchwork`. The default is
+`twopi`, `circo`, `fdp`, `sfdp`, `osage`, and `patchwork`. The default is
 `neato`. Alternatively, a **.dot** file name can be specified; this
 must contain position information, and the layout will be directly
 loaded from it. This file usually comes from an earlier run of the

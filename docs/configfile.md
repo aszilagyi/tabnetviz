@@ -51,7 +51,7 @@ title: Tabnetviz configuration options
       Save the modified edge table, i.e. after new columns from network analysis, rankings,  Boolean columns defining edge groups, and calculated non-Graphviz attributes have been added. The format can be csv, tsv, xlsx, or xls; the program will use the filename extension to decide the format. Optional; by default no file will be saved. Cannot be the same as the original edge table file name. Can be overridden on the command line using the `--edgetableout` option.
     * **colorbars:** _filename_\
       Save an SVG file named _filename_ containing color bars for the colormaps used in the node style and edge style mappings. These can then be used to create a legend for your visualization. Optional; if not specified then no such file will be created.
-* **layout:** **`neato`**|`dot`|`twopi`|`circle`|`fdp`|`sfdp`|`patchwork`| **_dotfilename_**\
+* **layout:** **`neato`**|`dot`|`twopi`|`circo`|`fdp`|`sfdp`|`patchwork`|`osage`| **_dotfilename_**\
   Specify a layout algorithm or a dot file to take a pre-generated layout from. If a dot file is specified, it must contain the same network as the current network, and must contain position coordinates for all nodes and edges.
 * **graphattrs:**\
   Optional additional Graphviz graph attributes. By default, `outputorder: edgesfirst`,  and `overlap: false`, will be set for nicer visual appearance of the graph.
